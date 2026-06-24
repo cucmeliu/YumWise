@@ -1,0 +1,19 @@
+
+# 依赖包与构建产物
+**/node_modules/
+**/dist/
+**/target/
+
+# 日志与系统文件
+*.log
+.DS_Store
+Thumbs.db
+
+# 密钥与本地配置
+*.pem
+*.key
+application-local.yml
+
+# 设计文档
+prototype.html
+PRD_真享吃_v1.0.md
