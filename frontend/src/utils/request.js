@@ -19,7 +19,8 @@ class Request {
           ...options.header,
         },
         success: (res) => {
-          if (res.statusCode === 200) {
+          console.log('API Response:', res.statusCode, res.data);
+          if (res.statusCode >= 200 && res.statusCode < 300) {
             resolve(res.data);
           } else if (res.statusCode === 401) {
             uni.removeStorageSync('token');
@@ -28,7 +29,8 @@ class Request {
             });
             reject(new Error('未授权'));
           } else {
-            reject(new Error(res.data.message || '请求失败'));
+            console.error('API Error:', res.statusCode, res.data);
+            reject(new Error(res.data.message || `请求失败: ${res.statusCode}`));
           }
         },
         fail: (err) => {

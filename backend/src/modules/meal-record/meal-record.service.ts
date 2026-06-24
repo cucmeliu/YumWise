@@ -115,9 +115,11 @@ export class MealRecordService {
     };
 
     records.forEach((r) => {
-      mealTypeCount[r.mealType] = (mealTypeCount[r.mealType] || 0) + 1;
+      const mealType = r.mealType as keyof typeof mealTypeCount;
+      mealTypeCount[mealType] = (mealTypeCount[mealType] || 0) + 1;
       if (r.rating) {
-        ratingCount[r.rating] = (ratingCount[r.rating] || 0) + 1;
+        const rating = r.rating as keyof typeof ratingCount;
+        ratingCount[rating] = (ratingCount[rating] || 0) + 1;
       }
     });
 

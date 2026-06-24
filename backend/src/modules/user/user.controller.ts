@@ -26,11 +26,20 @@ export class UserController {
   @Post('login')
   @ApiOperation({ summary: '用户登录/注册' })
   async login(@Body('code') code: string) {
-    const wechatData = await this.authService.wechatLogin(code);
-    let user = await this.userService.findByOpenid(wechatData.openid);
+    let openid: string;
+
+    // 支持模拟登录（H5测试用）
+    if (code && code.startsWith('mock_code_')) {
+      openid = 'mock_openid_' + Date.now();
+    } else {
+      const wechatData = await this.authService.wechatLogin(code);
+      openid = wechatData.openid;
+    }
+
+    let user = await this.userService.findByOpenid(openid);
 
     if (!user) {
-      user = await this.userService.createOrUpdate(wechatData.openid);
+      user = await this.userService.createOrUpdate(openid);
     }
 
     const token = await this.authService.generateToken(user.id, user.wxOpenid);

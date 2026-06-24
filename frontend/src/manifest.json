@@ -29,7 +29,7 @@
   },
   "quickapp": {},
   "mp-weixin": {
-    "appid": "",
+    "appid": "wx7b15b577aa8f224a",
     "setting": {
       "urlCheck": false,
       "es6": true,
@@ -37,6 +37,7 @@
       "minified": true
     },
     "usingComponents": true,
+    "lazyCodeLoading": "requiredComponents",
     "permission": {
       "scope.userLocation": {
         "desc": "您的位置信息将用于获取附近餐厅推荐"

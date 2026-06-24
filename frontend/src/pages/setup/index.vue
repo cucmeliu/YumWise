@@ -168,6 +168,12 @@ async function saveProfile() {
   try {
     uni.showLoading({ title: '保存中' });
 
+    // 检查是否登录，未登录则先模拟登录（H5测试用）
+    if (!userStore.isLoggedIn()) {
+      console.log('未登录，执行模拟登录');
+      await userStore.mockLogin();
+    }
+
     const profileData = {
       healthGoal: selectedGoal.value,
       restrictions: selectedRestrictions.value,
@@ -176,17 +182,28 @@ async function saveProfile() {
       age: Number(bodyData.value.age) || null,
     };
 
-    await userStore.saveHealthProfile(profileData);
+    console.log('保存健康画像:', profileData);
+    const result = await userStore.saveHealthProfile(profileData);
+    console.log('保存结果:', result);
 
     uni.hideLoading();
-    uni.switchTab({
-      url: '/pages/index/index',
+    uni.showToast({
+      title: '保存成功',
+      icon: 'success',
     });
+    
+    setTimeout(() => {
+      uni.switchTab({
+        url: '/pages/index/index',
+      });
+    }, 1500);
   } catch (error) {
     uni.hideLoading();
+    console.error('保存失败:', error);
     uni.showToast({
-      title: '保存失败',
+      title: error.message || '保存失败',
       icon: 'none',
+      duration: 3000,
     });
   }
 }

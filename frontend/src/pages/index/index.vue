@@ -103,7 +103,7 @@ const greetingText = computed(() => {
 });
 
 const userName = computed(() => {
-  return userStore.userInfo?.nickname || '美食家';
+  return userStore.state.userInfo?.nickname || '美食家';
 });
 
 onMounted(async () => {

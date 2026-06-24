@@ -35,7 +35,7 @@ import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
         password: configService.get('DB_PASSWORD', ''),
         database: configService.get('DB_DATABASE', 'yumwise'),
         entities: [__dirname + '/**/*.entity{.ts,.js}'],
-        synchronize: configService.get('NODE_ENV') === 'development',
+        synchronize: false,
         logging: configService.get('NODE_ENV') === 'development',
         charset: 'utf8mb4',
       }),
